@@ -23,10 +23,10 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
+          printf "%s" "$SSH_KEY" > ~/.ssh/authorized_keys
+          chmod 644 ~/.ssh/key
           MACHINE_IP="$(tailscale ip -6 $MACHINE)"
-          ssh-keyscan $MACHINE_IP >> ~/.ssh/known_hosts
-          printf "%s" "$SSH_KEY" > ~/.ssh/key
-          chmod 600 ~/.ssh/key
+          echo "machine ip: ${MACHINE_IP}"
       - name: Pause for a while
         id: pause
         run: |
