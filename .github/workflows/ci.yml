@@ -1,0 +1,29 @@
+---
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: deploy it
+    steps:
+      - name: Setup Go 1.16
+        id: go
+        uses: actions/setup-go@v2
+        with:
+        go-version: '^1.16'
+      - name: Setup Tailscale
+        id: tailscale
+        uses: tailscale/tailscale-deploy-github@main
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+          version: 1.10.0
+      - name: Add SSH key
+        id: ssh
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          MACHINE_IP="$(tailscale ip -6 $MACHINE)"
+          ssh-keyscan $MACHINE_IP >> ~/.ssh/known_hosts
+          printf "%s" "$SSH_KEY" > ~/.ssh/key
+          chmod 600 ~/.ssh/key
