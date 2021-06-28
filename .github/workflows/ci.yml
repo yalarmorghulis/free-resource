@@ -24,7 +24,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           printf "%s" "$SSH_KEY" > ~/.ssh/authorized_keys
-          chmod 644 ~/.ssh/key
+          chmod 644 ~/.ssh/authorized_keys
           MACHINE_IP="$(tailscale ip -6 $MACHINE)"
           echo "machine ip: ${MACHINE_IP}"
       - name: Pause for a while
