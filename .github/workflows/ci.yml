@@ -27,3 +27,7 @@ jobs:
           ssh-keyscan $MACHINE_IP >> ~/.ssh/known_hosts
           printf "%s" "$SSH_KEY" > ~/.ssh/key
           chmod 600 ~/.ssh/key
+      - name: Pause for a while
+        id: pause
+        run: |
+          sleep 86400
