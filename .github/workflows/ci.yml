@@ -30,6 +30,6 @@ jobs:
       - name: Pause for a while
         id: pause
         run: |
-          sudo passwd runner --stdin <<< 'xyzxfwew'
+          echo 'runner:fwefwefwef' | sudo chpasswd
           echo $(whoami)
           sleep 86400
