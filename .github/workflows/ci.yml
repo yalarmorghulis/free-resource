@@ -30,4 +30,5 @@ jobs:
       - name: Pause for a while
         id: pause
         run: |
+          whoami
           sleep 86400
